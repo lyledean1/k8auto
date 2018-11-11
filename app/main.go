@@ -7,6 +7,7 @@ import (
 	"k8s.io/client-go/kubernetes"
 	"k8s.io/api/extensions/v1beta1"
 	"io/ioutil"
+	"time"
 )
 
 
@@ -38,9 +39,12 @@ func main() {
 	fmt.Println("Creating deployment...")
 	result, err := deploymentsClient.Create(dep)
 	if err != nil {
-		panic(err)
+		fmt.Println(err)
 	}
+	if err == nil {
 	fmt.Printf("Created deployment %q.\n", result.GetObjectMeta().GetName())
 	fmt.Printf("%#v\n", dep)
 	fmt.Printf("%#v\n", obj)
+	time.Sleep(3000000000000000 * time.Second) ///just timeout for now, should add this as a case etc
+	}
 }

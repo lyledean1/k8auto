@@ -1,0 +1,27 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    app: k8auto
+    role: master
+    tier: backend
+  name: k8auto-controller
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: k8auto
+        role: master
+        tier: backend
+    spec:
+      containers:
+      - image: lyled/k8auto
+        name: k8auto
+        command: ["/go/src/bitbucket.org/lyledean/pong/app/main"]
+  strategy:
+    # indicate which strategy we want for rolling update
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 2
+      maxUnavailable: 1
